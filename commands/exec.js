@@ -2,7 +2,9 @@ const Discord = require('discord.js');
 const { exec } = require("child_process");
 exports.run = async (client, msg, args) => {
   try {
-    if (msg.author.id == "251091302303662080") {
+    if (msg.author.id == client.owner.id) {
+
+      //implement 2fa because why not
       res = require("child_process").execSync(args.join(" "))
       var embed = new client.discord.MessageEmbed()
       .addField(`:penguin: Input :penguin: `, `\`\`\`js\n${args.join(" ")}\n\`\`\``)
@@ -13,22 +15,14 @@ exports.run = async (client, msg, args) => {
     else {
       msg.channel.send("**OOF**");
     }
-
-
   } catch (err) {
    res = err
    if (err) {
-
      var embed = new client.discord.MessageEmbed()
      .addField(`:penguin: Input :penguin: `, `\`\`\`js\n${args.join(" ")}\n\`\`\``)
      .addField(`:skull: Output :skull: `, `\`\`\`LIDF\n${res.toString().replace(client.token, "token")}\n\`\`\``);
-
      msg.channel.send(embed);
-
    }
-  }
-
-  // return msg.channel.send("```LIDF\n" + res + "```");
 }
 
 module.exports.info = {

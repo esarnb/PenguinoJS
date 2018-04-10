@@ -8,11 +8,8 @@ module.exports.run = async (client, msg, args) => {
     for(let i = 0; i < objArr.length; i++) {
       thisCPUS.push(`| Speed: ${objArr[i].speed}MHz`)
     }
-
-
   try {
     var embed = new client.discord.MessageEmbed()
-
     var toEdit = msg.channel.send({embed: new client.discord.MessageEmbed()
       .addField('What info would you like to see out of this list:',
         `\`os\`: I'll give you a tour of my house.` +"\n"+
@@ -35,9 +32,7 @@ module.exports.run = async (client, msg, args) => {
       errors: ['time'],
     })
     .then((collected) => {
-      // console.log(collected);
-        //msg.channel.send(`The collected message was: ${collected.first().content}`);
-        collected.delete({timeout: 1000})
+      collected.delete({timeout: 1000})
         if (collected.first().content.toLowerCase() == "os") {
           embed.addField(`OS`, ""+
             `Platform: ${os.platform()}\n` +
@@ -51,8 +46,6 @@ module.exports.run = async (client, msg, args) => {
             `*Bot Owner*: ${client.users.get(client.config.ownerid).tag}\n`+
             `*Version*: ${client.discord.version}\n`+
             `*Me*: ${client.user.tag}\n`+
-            //`*My Status*: ${client.presence.status}`+ "\n"+
-            //`*My Activity*: ${client.presence.activity}`+ "\n"+
             `*Guild Size*: ${client.guilds.size}\n`+
             `*Member Size*: ${client.users.filter(xx => !xx.bot).size}\n`+
           "")
@@ -88,8 +81,6 @@ module.exports.run = async (client, msg, args) => {
         toEdit.edit('There was no collected message that passed the filter within the time limit!');
       });
   })
-
-
 }
   catch (err) {
     console.log(err);

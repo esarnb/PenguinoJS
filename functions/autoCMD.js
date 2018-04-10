@@ -19,19 +19,19 @@ module.exports = (client, command) => {
   //   }
   // }
 
-  let commandList = fs.readdirSync('/Bots/Bots/bots/p/commands/');
+  let commandList = fs.readdirSync('/Desktop/PJS/commands/');
 
   if (command) {
     if (commandList.indexOf(`${command}.js`) >= 0) {
-      delete require.cache[require.resolve(`/Bots/Bots/bots/p/commands/${command}`)];
-      client.commands[command] = require(`/Bots/Bots/bots/p/commands/${command}`);
+      delete require.cache[require.resolve(`/Desktop/PJS/commands/${command}`)];
+      client.commands[command] = require(`/Desktop/PJS/commands/${command}`);
     }
   } else {
     for (let i = 0; i < commandList.length; i++) {
       let prop = commandList[i];
       if (prop.match(/\.js$/)) {
-        delete require.cache[require.resolve(`/Bots/Bots/bots/p/commands/${prop}`)];
-        client.commands[prop.slice(0, -3)] = require(`/Bots/Bots/bots/p/commands/${prop}`);
+        delete require.cache[require.resolve(`/Desktop/PJS/commands/${prop}`)];
+        client.commands[prop.slice(0, -3)] = require(`/Desktop/PJS/commands/${prop}`);
         console.log(client.colors.yellow(`Loaded in ${prop}`));
       }
     }

@@ -10,33 +10,6 @@ module.exports.run = (client, msg, args) => {
     	return text;
     }
 
-    function gistUpload(text, lang = 'js') {
-    	const filename = 'Eval.' + lang;
-      return request('https://api.github.com/gists', {
-          body: {
-              files: {
-                  [filename]: {
-                      content: text
-                  }
-              }
-          },
-          json: true
-      }).then(res => {
-    		if (res && res.body && res.body.html_url) {
-          // console.log(res);
-    			return {
-    				success: true,
-            url: res.body.html_url,
-            rawUrl: res.body.files[filename].raw_url
-    			};
-    		} else {
-    			return {
-    				success: false
-    			};
-    		}
-    	});
-    }
-
     try {
      const code = args.join(" ");
      let evaled = eval(code);
@@ -47,8 +20,7 @@ module.exports.run = (client, msg, args) => {
      var toSend = clean(evaled).toString().replace(client.token, `What token? I am a fellow human just like you!`);
 
      if (toSend.length > 1900) {
-       // msg.channel.send(gistUpload(toSend));
-       msg.reply(`${toSend.length} characters is too big for a discord message`)
+       msg.reply(`${toSend.length} characters is too big for a discord message, figure out how to fix this`)
      }
      else {
        msg.channel.send(toSend, {code: "xl"});

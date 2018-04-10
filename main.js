@@ -11,7 +11,7 @@ client.load = require("./functions/autoCMD.js");
 client.getQueue = require("./functions/getQueue.js");
 client.runQueue = require("./functions/runQueue.js");
 
-client.prefix = client.config.prefix;
+client.prefix = client.config.prefix; //Im so lazy
 
 client.commands = {};
 client.queues = {};
@@ -23,7 +23,7 @@ client.on('ready', () => require('./events/ready.js')(client));
 client.on('message', (msg) => require('./events/message.js')(client, msg));
 process.on('unhandledRejection', error => {
     console.log(error);
-    client.guilds.get("").channels.get("").send("<@251091302303662080> Error: \n" + error.message + "\n\n" + client.URE);
+    client.users.get(client.config.ownerid).send("Error: \n" + error.message + "\n\n" + client.URE);
 });
 
 client.redis = redis.createClient();
