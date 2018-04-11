@@ -3,6 +3,7 @@
 ############
 config.json
 test.js
+package-lock.json
 
 # Compiled source #
 ###################
