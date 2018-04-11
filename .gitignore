@@ -4,6 +4,7 @@
 config.json
 test.js
 package-lock.json
+node_modules/
 
 # Compiled source #
 ###################

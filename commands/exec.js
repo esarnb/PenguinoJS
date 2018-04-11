@@ -24,6 +24,7 @@ exports.run = async (client, msg, args) => {
      msg.channel.send(embed);
    }
 }
+}
 
 module.exports.info = {
   name: "Executable",
