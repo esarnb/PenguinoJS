@@ -1,6 +1,6 @@
 const ytdl = require("youtube-dl");
 const ytsearch = require("youtube-search");
-
+//ALl music commands are originally from MoistSenapi, bot creator of Neptune#2425 (313157239714217984) and Purple Heart#1045 (405065455997419530)
 module.exports.run = (client, msg, args) => {
   var queue = client.getQueue(client, msg.guild.id);
   var testUrl = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
@@ -30,7 +30,7 @@ module.exports.run = (client, msg, args) => {
     }).catch(err => console.log(err));
   }
   else { // Search video
-    ytsearch(args.join(" "), {maxResult: 5, safeSearh: false,  key: "AIzaSyC64ykWqc8X25HvkbYep5sXiDamGINNHxw"}, (err, videoInfo) => {
+    ytsearch(args.join(" "), {maxResult: 5, safeSearh: false,  key: client.config.ytkey}, (err, videoInfo) => {
       if (err) return console.log(`NUMERO UNO S1 ${err}`);
 
       msg.channel.send("Searching...").then(async (toReact) => {

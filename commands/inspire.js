@@ -3,7 +3,6 @@ const moment = require("moment")
 module.exports.run = (client, msg, args) => {
  try {
    request('http://inspirobot.me/api?generate=true', (err, body, resp) => {
-     // Console log each to get data you want I'ma do same
      if (!err ) {
        msg.channel.send({embed: new client.discord.MessageEmbed()
          .setImage(resp)

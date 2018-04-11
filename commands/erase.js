@@ -64,9 +64,9 @@ module.exports.run = async (client, msg, args) => {
 }
 
 module.exports.info = {
-  name: "info",
-  help: "Information of the bot",
-  categ: "Info",
+  name: "erase",
+  help: "Erase previous messages",
+  categ: "Utility",
   owner: false,
   admin: false,
   issue: false

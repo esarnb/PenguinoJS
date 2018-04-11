@@ -1,24 +1,24 @@
 module.exports.run = (client, msg, args) => {
   let voiceConnection = msg.guild.voiceConnection;
   let queue = client.getQueue(client, msg.guild.id);
-  // if (client.redis) {
-  //   client.redis.exists(`GuildMusicVolume`, function (err, reply) {
-  //     if (err) throw err;
-  //     if (reply === 1) {
-  //       client.redis.get(`GuildMusicVolume`, function(err, reply) {
-  //         var obj = JSON.parse(reply);
-  //         for (let thisOne of obj.users) {
-  //           if (thisOne.guildid == msg.guild.id) {
-  //             obj.users[obj.users.indexOf(thisOne)].volumeSet = args[0];
-  //             client.redis.set(`GuildMusicVolume`, JSON.stringify(obj), function(err, reply) {
-  //               if (err) throw err;
-  //             })
-  //           }
-  //         }
-  //       });
-  //     }
-  //   });
-  // }
+  if (client.redis) {
+    client.redis.exists(`GuildMusicVolume`, function (err, reply) {
+      if (err) throw err;
+      if (reply === 1) {
+        client.redis.get(`GuildMusicVolume`, function(err, reply) {
+          var obj = JSON.parse(reply);
+          for (let thisOne of obj.users) {
+            if (thisOne.guildid == msg.guild.id) {
+              obj.users[obj.users.indexOf(thisOne)].volumeSet = args[0];
+              client.redis.set(`GuildMusicVolume`, JSON.stringify(obj), function(err, reply) {
+                if (err) throw err;
+              })
+            }
+          }
+        });
+      }
+    });
+  }
 
   if (!voiceConnection === null || queue.length <= 0) return msg.channel.send(`There's nothing being played right now, ${msg.author.username}!`);
   if (!msg.member.hasPermission(`ADMINISTRATOR`) && msg.author.id !== queue[0].requester && msg.author.id !== client.config.ownerid) return msg.channel.send(`${msg.author.username} Only video requester or an admin can do that! Go change my mic volume instead!`);

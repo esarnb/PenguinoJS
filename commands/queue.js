@@ -23,7 +23,6 @@ module.exports.run = (client, msg, args) => {
     .setColor(client.rColor)
   });
 }
-// Youtube API Key("AIzaSyC64ykWqc8X25HvkbYep5sXiDamGINNHxw");
 
 module.exports.info = {
   name: "queue",
