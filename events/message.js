@@ -1,79 +1,40 @@
-module.exports = (client, msg) => {
+module.exports = async (client, msg) => {
+  if (msg.author.bot || (msg.content.startsWith("`") && msg.content.charAt(msg.content.length - 1) == "`")) return;
 
-  try {
-    runReaction();
-    if (msg.author.bot || msg.channel.type == "dm" || (msg.content.charAt(0) == "`" && msg.content.charAt(msg.content.length - 1) == '`')) return;
-
-    client.rColor = Math.floor(Math.random()*16777215).toString(16);
-
-    if (client.redis) {
-      client.redis.exists(`${msg.guild.id}-PerServerPrefix`, function (err, existing) {
-        if (err) throw err;
-        if (existing === 1) {
-          client.redis.get(`${msg.guild.id}-PerServerPrefix`, function (err, replyPrefix) {
-            if (err) throw err;
-            client.prefix = replyPrefix;
-          });
+	//Load MySQL
+  if (msg.guild && client.mysqlStatus) {
+    client.connection.query(`SELECT * FROM Prefixes WHERE guild = ${msg.guild.id}`, function (err, row) {
+      if (err) console.log(err);
+      if (row) {
+        if (!row.length) {
+          client.connection.query(`INSERT INTO Prefixes (prefixes, guild) VALUES (?, ?)`, [client.prefix, msg.guild.id])
         }
-        else {
-          client.redis.set(`${msg.guild.id}-PerServerPrefix`, `\``, function (err, replyConfirm) {
-            if (err) throw err;
-            console.log(`${msg.guild.name} PrefixSetup: "\`"`);
-            client.prefix = "`";
-          });
-        }
-      });
-    }
-    else {
-      client.prefix = client.config.prefix;
-    }
-
-
-    let prefixes  = [client.prefix, `<@${client.user.id}> `, `<@!${client.user.id}> `];
-    for (thisPrefix of prefixes) {
-      if (msg.content.startsWith(thisPrefix)) client.prefix = thisPrefix;
-    }
-
-
-    if (!msg.content.startsWith(client.prefix)) return;
-    if (!msg.channel.permissionsFor(msg.guild.members.get(`${client.user.id}`)).has("SEND_MESSAGES")) return msg.author.send(`Sorry! I do not have permissions to speak in the guild: \`${msg.guild.name}\` in channel: \`#${msg.channel.name}\``)
-
-
-    const args = msg.content.split(' ').slice(1);
-    const command = msg.content.toLowerCase().slice(client.prefix.length).trim().split(' ').shift();
-
-      if (command in client.commands && client.commands[command].info.owner == true && msg.author.id != client.config.ownerid) return msg.channel.send("Sorry, you are not considered an owner. ").then(msgd => msgd.delete({timeout: 15000}));
-      if (command in client.commands && client.commands[command].info.admin == true && !msg.member.hasPermission(`ADMINISTRATOR`) && msg.author.id !== client.config.ownerid) return msg.channel.send("Sorry, you do not have administrator in this guild.").then(msgd => msgd.delete({timeout: 15000}));
-      if (command in client.commands && client.commands[command].info.issue == true) return msg.channel.send("Sorry, the cmd is broken rn.").then(msgd => msgd.delete({timeout: 15000}));
-
-      if (command in client.commands) {
-        client.commands[command].run(client, msg, args);
-        client.URE = `[${msg.author.tag}]\n--->[${msg.guild.name}]\n------>[${command}]|[${args.join(" ")}]`
+        client.prefix = row.length > 0 ? row[0].prefixes : client.prefix;
       }
-  }
-  catch (err) {
-    console.log(err);
+    })
   }
 
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  //End of program. Begins Functions
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  //=-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-=
-  function reactList(){
-    let trained = "ok"
-  }
-  //=-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-=
-  function runReaction() {
-    if (msg.content.toLowerCase() == "sirparrot") runReactionSend("<a:aparrot:394343043102408715>");
-    else if (msg.content.toLowerCase() == "blobpenguin") runReactionSend("<:blobcatpenguin:400072211337183244>")
-  }
+	//Check prefix
+		let prefixes = [client.prefix, `<@${client.user.id}> `, `<@!${client.user.id}> `];
+		for (thisPrefix of prefixes) {
+			if (msg.content.startsWith(thisPrefix)) {
+				client.prefix = thisPrefix;
+				if(msg.content.indexOf(client.prefix) !== 0) return;
+        //Load Args, cmd
+				const args = msg.content.slice(client.prefix.length).trim().split(/ +/g);
+				const command = args.shift().toLowerCase();
+				let cmd = client.commands.get(command);
 
-  function runReactionSend(emojid) {
-    msg.channel.send(emojid);
-    msg.delete({timeout: 100});
-  }
-  //=-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-=
-  //=-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-=
-  //=-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-=
-  //=-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-==-=
+				//Run cmd file after checking locks of file
+				if(cmd) {
+					let usrFound = client.Owners.find(usr => (usr == msg.author.id));
+					if (cmd.help.owner  == true  && (!usrFound)) return msg.channel.send("You're not owner!");
+					if (cmd.help.locked == true  && (!usrFound)) return msg.channel.send("Command is locked, my apologies");
+					if (!msg.guild && (cmd.help.guild == true)) return msg.channel.send("Command is guild only!");
+//Why am i using MANAGE_MESSAGES?
+          else if (cmd.help.admin == true && !msg.member.hasPermission("MANAGE_MESSAGES", {checkAdmin: true , checkOwner: true})) return msg.channel.send("You're not admin (MANAGE_MESSAGES permisison) in the guild!");
+					cmd.run(client, msg, args);
+				}
+			}
+		}
 }
