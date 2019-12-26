@@ -4,7 +4,7 @@ const client = new Discord.Client({
   presence:{
     status: "online",
     activity: {
-      name:  "@PenguinoJS prefix",
+      name:  "Netflix",
       type: "WATCHING"
     }
   }
@@ -17,6 +17,7 @@ client.rColor = function () {return Math.floor(Math.random()*16777215).toString(
 
 process.on('unhandledRejection', err => {
   if (err) throw err;
+  //or send a message to me in dms
 });
 
 client.login(client.config.token);
