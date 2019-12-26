@@ -3,15 +3,14 @@ exports.run = async (client, msg, args) => {
   
   const cmd = args[0];
   if(client.commands.has(cmd)) {
-    delete require.cache[getFile];
-    client.commands.delete(cmd);
-  }
-  
-  let getFile = require.resolve(`./${cmd}.js`)
-  if (getFile) {
-    const props = require(`./${cmd}.js`);
-    client.commands.set(cmd, props);
-    msg.reply(`the command ${cmd} has been reloaded`);
+    if (require.resolve(`./${cmd}.js`)) {
+      delete require.cache[require.resolve(`./${cmd}.js`)];
+      client.commands.delete(cmd);
+
+      const props = require(`./${cmd}.js`);
+      client.commands.set(cmd, props);
+      msg.reply(`the command ${cmd} has been reloaded`);
+    }
   }
 }
 
