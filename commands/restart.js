@@ -5,7 +5,7 @@ exports.run = async (client, msg, args) => {
 
   msg.channel.send(`Napping for 3 seconds...`).then((m) => { process.exit() });
   
-  }
+}
   
   exports.help = {
     name: 'restart',

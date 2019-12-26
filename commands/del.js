@@ -14,7 +14,7 @@ exports.run = async (client, msg, args) => {
     name: 'del',
     desc: "delete a specific amount of messages",
     type: "Admin",
-    usage: "-del 9\n-del <amount of msgs>",
+    usage: "del <amount of msgs>",
     owner: true,
     locked: false,
     guild: true
