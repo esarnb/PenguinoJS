@@ -5,10 +5,13 @@ exports.run = async (client, msg, args) => {
         categories[cmd.help.type].push(cmd.help);
     }
     
-    let embed = new client.discord.MessageEmbed();
+    let embed = new client.discord.MessageEmbed(), content = null;
     for (categ in categories) { 
         categories[categ].sort((a, b) => a.name - b.name) 
-        embed.addField(categ, categories[categ].map(x => `${x.name}: ${x.desc}`).join("\n"))
+        content = categories[categ].map(x => `${x.name}: ${x.desc}`).join("\n")
+        embed.addField(categ, content)
+        console.log(content);
+        
     }
 
     msg.channel.send({embed: embed})
