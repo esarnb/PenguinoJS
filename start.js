@@ -1,3 +1,5 @@
+require("dotenv").config()
+
 const Discord = require("discord.js");
 const client = new Discord.Client({
   disableEveryone: true,
@@ -10,14 +12,13 @@ const client = new Discord.Client({
   }
 });
 
-client.discord = Discord;
-client.prefix = client.config.prefix;
-client.config = require("./config.json");
-client.rColor = function () {return Math.floor(Math.random()*16777215).toString(16)}
+require("./scripts/load.js")(client);
+require("./scripts/owners.js")(client);
+require("./scripts/values.js")(client);
 
 process.on('unhandledRejection', err => {
   if (err) throw err;
   //or send a message to me in dms
 });
 
-client.login(client.config.token);
+client.login(process.env.TOKEN);
