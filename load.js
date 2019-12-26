@@ -1,7 +1,7 @@
-const colors = require('colors');
+require('colors');
 const fs = require("fs");
 
-exports.run = (client) => {
+module.exports = (client) => {
 
     let dir = `./commands/`;
     client.commands = new client.discord.Collection();
@@ -15,14 +15,14 @@ exports.run = (client) => {
 
         console.log(`Loading ${files.length} commands...`.magenta); // Prints how many commands we are loading
         cmds.forEach((f, i) => { // For all files in folder, f is files, and i is index
-            const command = require(`${dir}${f}`);
-            client.commands.set(command.help.name, command); // Push command name and functions into list
+            const cmd = require(`${dir}${f}`);
+            client.commands.set(cmd.help.name, cmd); // Push command name and functions into list
             console.log(`${i + 1}: ${f} loaded!`.cyan);
         });
 
     });
 
-    fs.readdir("./events/", (err, files) => {
+    fs.readdir(`./events/`, (err, files) => {
         
         if (err) return console.error(err);
         

@@ -12,9 +12,9 @@ const client = new Discord.Client({
   }
 });
 
-require("./scripts/load.js")(client);
-require("./scripts/owners.js")(client);
-require("./scripts/values.js")(client);
+client.discord = Discord; // Attach discord functions into client 
+require("./scripts/values.js")(client); // Initialize prefix and variables
+require("./load.js")(client); // Load in commands and events
 
 process.on('unhandledRejection', err => {
   if (err) throw err;
