@@ -1,4 +1,5 @@
 exports.run = async (client, msg, args) => {
+    // Custom animated emojis to choose from everytime cmd is called
     let emojis = [
         `https://cdn.discordapp.com/emojis/508027554557329448.gif?v=1`,
         `https://cdn.discordapp.com/emojis/468080518341197834.gif?v=1`,
