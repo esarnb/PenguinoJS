@@ -4,6 +4,8 @@ module.exports = async (client, msg) => {
     for (thisPrefix of prefixes) if (msg.content.startsWith(thisPrefix)) client.prefix = thisPrefix;
     if(msg.content.indexOf(client.prefix) !== 0) return;
 
+    // To Do: Incorporate mongo db
+
     //Load Args, cmd
     const args = msg.content.slice(client.prefix.length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
