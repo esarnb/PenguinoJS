@@ -6,7 +6,13 @@ exports.run = async (client, msg, args) => {
     else if(isNaN(args[0]) || args[0] > 99 || args[0] < 1) return msg.channel.send("Please provide a number between 0 and 100 instead.", {code: "fix"}).then((msgy)=>msgy.delete({timeout:5000}));
   
     let counts = (parseInt(args[0]) + 1);
-    msg.channel.messages.fetch({ limit: counts }).then(messages => msg.channel.bulkDelete(messages)).catch(console.error);
+    msg.channel.messages.fetch({ limit: counts }).then(messages => {
+      msg.channel.bulkDelete(messages).then(() => { 
+        msg.channel.send("Done!").then(e => {
+          e.delete({timeout: 3000})
+        })
+      })
+    }).catch(console.error);
   
   }
   
