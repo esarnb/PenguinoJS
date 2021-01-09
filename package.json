@@ -18,8 +18,8 @@
   },
   "homepage": "https://github.com/esarnb/PenguinoJS#readme",
   "dependencies": {
-    "axios": "^0.20.0",
-    "base64-img": "^1.0.4",
+    "axios": "^0.21.1",
+    "base64-img": "^1.0.1",
     "colors": "^1.4.0",
     "curl": "^0.1.4",
     "dayjs": "^1.8.36",
@@ -39,6 +39,5 @@
     "webp-converter": "^2.3.0",
     "yt-search": "^1.1.2",
     "ytdl-core-discord": "^1.2.0"
-  },
-  "devDependencies": {}
+  }
 }
