@@ -3,11 +3,13 @@ exports.run = async (client, msg, args) => {
   
   const cmd = args[0];
   if(client.commands.has(cmd)) {
-    if (require.resolve(`./${cmd}.js`)) {
-      delete require.cache[require.resolve(`./${cmd}.js`)];
+    let c = client.commands.get(cmd).help.type;
+    let path = `../${c}/${cmd}.js`;
+    if (require.resolve(path)) {
+      delete require.cache[require.resolve(path)];
       client.commands.delete(cmd);
 
-      const props = require(`./${cmd}.js`);
+      const props = require(path);
       client.commands.set(cmd, props);
       msg.reply(`the command ${cmd} has been reloaded`);
     }
