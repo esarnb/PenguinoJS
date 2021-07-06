@@ -3,7 +3,8 @@ module.exports = async (client, msg) => {
     
     // To Do: Incorporate mongo db
     if (client.mongo) {    
-        let Prefixes = client.mongo.models.Prefixes
+        let Prefixes = client.mongo.models.get("Prefixes")
+        // let Prefixes = client.mongo.models.get("prefixes.js")
         let instance = async () => await Prefixes.findOne({ guildid: msg.guild.id });
         let current = await instance()
         current ? client.prefix = current.prefix : client.config.prefix; // Use server prefix, else default prefix.

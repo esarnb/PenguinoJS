@@ -17,4 +17,11 @@ module.exports = (client) => {
     client.owners.set("Myself", myID)
     client.owners.set("Moist", "184157133187710977")
 
+    /**
+     *          PROTOTYPES
+     */
+
+    String.prototype.capitalize = function() {
+        return this.charAt(0).toUpperCase() + this.slice(1);
+    }
 }

@@ -10,6 +10,6 @@ module.exports = (mongoose) => {
 
   const PrefixesModel = mongoose.model("Prefixes", PrefixesSchema);
 
-  return new PrefixesModel();
+  return PrefixesModel;
 }
 

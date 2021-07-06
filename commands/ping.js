@@ -12,8 +12,8 @@ exports.run = async (client, msg, args) => {
     let owners = await Promise.all(client.owners.map(async x => await client.users.fetch(x)))
     msg.channel.send(`*Pinging...*`).then((m) => {
       let prompt = `Message Delay: ${Math.round(m.createdTimestamp - msg.createdTimestamp)}ms ❄  Websocket Ping: ${Math.round(client.ws.ping)}ms`;
-      if (msg.guild && !msg.guild.members.cache.get(client.user.id).hasPermission("EMBED_LINKS", {checkAdmin: true, checkOwner: true})) {
-        m.edit(prompt)
+      if (msg.guild && !msg.guild.members.resolve(client.user.id).permissionsIn(m.channel).has("EMBED_LINKS")) {
+        m.send(prompt)
       }
       else {
         m.edit("", {

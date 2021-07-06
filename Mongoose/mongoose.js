@@ -7,7 +7,8 @@ module.exports = async (client) => {
   let dir = __dirname + `/Models/`;
   
   // Connect to localhost mongodb
-  client.mongo = await mongoose.connect(`mongodb://${process.env.MongoUser}:${process.env.MongoPass}@localhost:27017/${process.env.MongoDB}?authSource=PJSDB`, {
+  client.mongo = {}
+  await mongoose.connect(`mongodb://${process.env.MongoUser}:${process.env.MongoPass}@localhost:27017/${process.env.MongoDB}?authSource=PJSDB`, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false,
@@ -26,7 +27,7 @@ module.exports = async (client) => {
     console.log(`Loading ${files.length} Model...`.blue); 
     models.forEach((f, i) => { 
       const model = require(`${dir}${f}`)(mongoose);
-      client.mongo.models.set(f, model); 
+      client.mongo.models.set(f.split('.').shift().capitalize(), model); 
       console.log(`${i + 1}: ${f} loaded!`.yellow);
     });
   });
