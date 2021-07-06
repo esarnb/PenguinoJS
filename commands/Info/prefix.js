@@ -21,7 +21,7 @@ exports.run = async (client, msg, args) => {
 exports.help = {
   name: 'prefix',
   desc: "Shows server prefix, Admins can change",
-  type: "Server Info",
+  type: "Info",
   usage: "prefix <new prefix>",
   owner: false,
   locked: false,

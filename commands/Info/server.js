@@ -23,7 +23,7 @@ exports.run = async (client, msg, args) => {
 exports.help = {
   name: 'server', 
   desc: "Shows server information", 
-  type: "Server Info", 
+  type: "Info", 
   usage: `server`, 
   owner: false, 
   locked: false, 
