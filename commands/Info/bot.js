@@ -7,7 +7,7 @@ exports.run = async (client, msg, args) => {
   
   // embed.setThumbnail("https://cdn.discordapp.com/attachments/569910716555853825/677368018912935936/1200px-Archlinux-icon-crystal-64.png")
   embed.setColor("#58D1ED")
-  embed.addField("=-=-=-= Platform =-=-=-=", `**Platform**: ${os.type} \n**Release**: ${os.release}`)
+  embed.addField("=-=-=-= Platform =-=-=-=", `**Platform**: ${os.type} \n**Release**: ${os.release} \n**Version**: "21.10 (Impish Indri)"`)
   embed.addField(`=-=-=-= CPU Arch: ${os.arch} =-=-=-= `, cpus)
   embed.addField(`=-=-=-= Memory =-=-=-= `, `**Total Mem**: ${formatBytes(os.totalmem, 3)} \n**Free Mem**:  ${formatBytes(os.freemem,3 )} \n**Used Mem**:  ${formatBytes(os.totalmem - os.freemem, 3)}`)
   
@@ -16,12 +16,12 @@ exports.run = async (client, msg, args) => {
   let u = client.users.cache.filter(x => !x.bot).size; // u = users (not bots)
   embed.addField("=-=-=- Bot Info =-=-=-", `**${client.user.tag}** \n**Uptime**: ${dhm(client.uptime)} \n**Guilds**: ${g} ~ **Users**: ${t} ~ **Bots**: ${u}`)
 
-  await Promise.all( client.owners.map((x) => client.users.fetch(x))).then(vals => {
-    embed.addField("=-=-=-= Owners =-=-=-=", vals.map(y => y.tag).join(", "))
-  })
+  // await Promise.all( client.owners.map((x) => client.users.fetch(x))).then(vals => {
+  //   embed.addField("=-=-=-= Owners =-=-=-=", vals.map(y => y.tag).join(", "))
+  // })
 
-  embed.setFooter("Ubuntu Server")
-  await msg.channel.send({embed: embed})
+  embed.setFooter({text: "Hi c:"})
+  await msg.channel.send({embeds: [embed]})
 
 }
 

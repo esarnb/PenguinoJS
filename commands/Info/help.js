@@ -7,7 +7,7 @@ exports.run = async (client, msg, args) => {
         categories[cmd.help.type].push(cmd.help);
     });
     
-    let embed = new client.discord.MessageEmbed().setColor(client.rColor()), content = null;
+    let embed = new client.discord.MessageEmbed().setColor("RANDOM"), content = null;
     if (args[0] == "all" || !args.length) {
         for (categ in categories) { 
             categories[categ].sort((a, b) => a.name - b.name) 
@@ -19,7 +19,7 @@ exports.run = async (client, msg, args) => {
         }
 
         embed.setTitle(`Category of commands`)
-        embed.setFooter(`${client.prefix}help <cmdName> for more info! Current prefix for server: ${client.prefix}`)
+        embed.setFooter({text: `${client.prefix}help <cmdName> for more info! Current prefix for server: ${client.prefix}`})
 
     } else {
 
@@ -30,10 +30,10 @@ exports.run = async (client, msg, args) => {
         embed.setTitle(`${client.prefix}${name}`)
         embed.addField(`Description`, `${desc}`)
         embed.addField("Usage", `${client.prefix}${usage}`)
-        embed.setFooter(`Category: ${type}　　Locked: ${locked}　　Guild Only: ${guild}　　Owner Only: ${owner}`)
+        embed.setFooter({text: `Category: ${type}　　Locked: ${locked}　　Guild Only: ${guild}　　Owner Only: ${owner}`})
 
     }
-    msg.channel.send({embed: embed})
+    msg.channel.send({embeds: [embed]})
 }
 
 exports.help = {

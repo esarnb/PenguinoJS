@@ -5,7 +5,7 @@ exports.run = async (client, msg, args) => {
   else if (args.length > 2) conversions(args[0], args[1], args.slice(2, args.length).map(x => parseInt(x)) );
 
   function conversions(oldUnit, newUnit, tempList ) {
-    var embed = new client.discord.MessageEmbed().setColor(client.rColor());
+    var embed = new client.discord.MessageEmbed().setColor("RANDOM");
     oldUnit = oldUnit.toLowerCase(); newUnit = newUnit.toLowerCase();
     if      (oldUnit == "c" && newUnit == "f") embed.setDescription(convert("CtoF", tempList).join("\n"))
     else if (oldUnit == "f" && newUnit == "c") embed.setDescription(convert("FtoC", tempList).join("\n"))
@@ -14,7 +14,7 @@ exports.run = async (client, msg, args) => {
     else if (oldUnit == "k" && newUnit == "c") embed.setDescription(convert("KtoC", tempList).join("\n"))
     else if (oldUnit == "c" && newUnit == "k") embed.setDescription(convert("CtoK", tempList).join("\n"))
 
-    msg.channel.send({embed: embed})
+    msg.channel.send({embeds: [embed]})
     function convert(type, tempList) {
       switch (type) {
         case "CtoF": /*(X * 9/5 + 32)*/                     for (let i = 0; i < tempList.length; i++) tempList[i] = (`${tempList[i]}°C => ${((tempList[i] * (9/5)) + 32).toFixed(3)}°F`); break;

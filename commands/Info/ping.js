@@ -1,26 +1,20 @@
 require("colors")
 exports.run = async (client, msg, args) => {
-    // Custom animated emojis to choose from everytime cmd is called
-    let emojis = [
-        `https://cdn.discordapp.com/emojis/508027554557329448.gif?v=1`,
-        `https://cdn.discordapp.com/emojis/468080518341197834.gif?v=1`,
-        `https://cdn.discordapp.com/emojis/544526717562257428.gif?v=1`,
-        `https://cdn.discordapp.com/emojis/468080498225184801.gif?v=1`,
-        `https://cdn.discordapp.com/emojis/429390316261605396.gif?v=1`
-    ]
     
-    let owners = await Promise.all(client.owners.map(async x => await client.users.fetch(x)))
     msg.channel.send(`*Pinging...*`).then((m) => {
       let prompt = `Message Delay: ${Math.round(m.createdTimestamp - msg.createdTimestamp)}ms ❄  Websocket Ping: ${Math.round(client.ws.ping)}ms`;
       if (msg.guild && !msg.guild.members.resolve(client.user.id).permissionsIn(m.channel).has("EMBED_LINKS")) {
         m.send(prompt)
       }
       else {
-        m.edit("", {
-          embed: new client.discord.MessageEmbed()
-          .setDescription(prompt)
-          .setFooter(`Created by ${owners.map(x => x.tag).join(", ")}`, emojis[Math.floor(Math.random() * emojis.length)])
-          .setColor(client.rColor())
+        m.edit({
+          content: "᲼",
+          embeds: [
+            new client.discord.MessageEmbed()
+            .setDescription(prompt)
+            // .setFooter(`Created by ${client.users.fetch(`${client.config.owner}`).tag}`, emojis[Math.floor(Math.random() * emojis.length)])
+            .setColor("RANDOM")
+          ]
         });
       }
     });

@@ -15,7 +15,7 @@ exports.run = async (client, msg, args) => {
         msg.channel.send(`Old: ${res.prefix}\nNew: ${args[0]}`)
       })
     } else { msg.channel.send(`Prefix: ${current.prefix}`) }
-  } else msg.channel.send("Unable to access records. Use prefix: >")
+  } else msg.channel.send(`Unable to access records. Use prefix: ${client.config.prefix}`)
 }
 
 exports.help = {

@@ -21,8 +21,8 @@ exports.run = async (client, msg, args) => {
   embed.addField("Nametag | ID", `${target.user.tag} | ${target.user.id}`, false) 
   embed.addField("Manipulation", `Bannable: ${target.bannable} | Kickable: ${target.kickable} | Manageable: ${target.manageable}`, false) 
   embed.addField("Color", `Color: ${target.displayColor} | Hex: ${target.displayHexColor}`, false)
-  embed.addField("joinedAt", `${dayjs(target.joinedTimestamp).format('MM/DD/YYYY hh:mm:ss')} UTC\n${dayjs(target.joinedTimestamp).tz("America/Los_Angeles").format('MM/DD/YYYY hh:mm:ss')} PST\n${dayjs(target.joinedTimestamp).tz("America/New_York").format('MM/DD/YYYY hh:mm:ss')} EST`, false) 
-
+  embed.addField("joinedAt", `${dayjs(target.joinedTimestamp).format('MM/DD/YYYY hh:mm:ss')} UTC`, false) 
+  embed.setThumbnail(target.user.avatarURL())
   if (target.premiumSince) {
     embed.addField("Premium Since", " ឵឵ ឵឵"+target.premiumSince, false) 
     embed.addField("Premium Since Timestamp", " ឵឵ ឵឵"+target.premiumSinceTimestamp, false) 
@@ -42,7 +42,7 @@ exports.run = async (client, msg, args) => {
   // }
   // embed.addField("User INFO", " ឵឵ ឵឵ ឵឵ ឵឵")
   
-  msg.channel.send({embed: embed})
+  msg.channel.send({embeds: [embed]})
 }
 
 exports.help = {

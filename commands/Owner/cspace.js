@@ -1,5 +1,5 @@
 exports.run = async (client, msg, args) => {
-  msg.delete({timeout: 100}).then(() => {
+  msg.delete().then(() => {
     console.log(`• • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • • `)
   })
 }
