@@ -30,7 +30,7 @@ exports.run = async (client, msg, args) => {
   if (msg.deletable) msg.delete({timeout: 300});
 
   // msg.channel.send({
-  //   embed: new client.discord.MessageEmbed()
+  //   embeds: new client.discord.MessageEmbed()
   //   .addField("Question", args.join(" "))
   //   .addField("Reply", chosenPrompt)
   //   .setFooter(msg.author.username, msg.author.avatarURL())
@@ -39,10 +39,13 @@ exports.run = async (client, msg, args) => {
   // msg.reply(chosenPrompt)
 
   msg.channel.send({
-    embed: new client.discord.MessageEmbed()
+    embeds: [new client.discord.MessageEmbed()
     .addField(args.join(" "), `🎊 __${chosenPrompt}__ 🎊`)
-    .setFooter(msg.author.username, msg.author.avatarURL())
-    .setColor(client.rColor())
+    .setFooter({
+      text: msg.author.username,
+      iconURL: msg.author.avatarURL()
+    })
+    .setColor("RANDOM")]
   })
 }
   

@@ -9,14 +9,14 @@ exports.run = async (client, msg, args) => {
 
 .　　 。　　   .　   •　 ඞ　 。 　 • 　　　•
 
-　ﾟ  　。${args[0] ? args.join(" ") : msg.author.username} ${Math.random() < 0.5 ? "is the Imposter! " : "is not the Imposter! <:why:757390743043309678>"} 。　.
+　ﾟ  　。${args[0] ? args.join(" ") : msg.author.username} ${Math.random() < 0.5 ? "is the Imposter! " : "is not the Imposter!"} 。　.
 
 　　ﾟ　　 　.　　 　.    ,　  　.　   .
-.　　　 •　　.　  .  。     。　    . 　
+.　　　 •　　.　  . 　　.　. 　　。     。　    . 　
     
     `
     msg.delete({timeout: 100}).then(() => {
-        msg.channel.send({embed: new client.discord.MessageEmbed().setDescription(display)})
+        msg.channel.send({embeds: [new client.discord.MessageEmbed().setDescription(display)]})
     })
 }
 

@@ -4,7 +4,7 @@ exports.run = async (client, msg, args) => {
     //    such as NPM's Forever or Nodemon or PM2
 
   msg.channel.send(`Napping for 3 seconds...`).then(async () => {
-    await client.voice.connections.map((c) => c.channel.leave())
+    if (client.voice.connections) await client.voice.connections.map((c) => c.channel.leave())
     await process.exit("Restarting")
   });
   
