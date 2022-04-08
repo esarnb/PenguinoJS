@@ -21,7 +21,9 @@ exports.run = async (client, msg, args) => {
   embed.addField("Nametag | ID", `${target.user.tag} | ${target.user.id}`, false) 
   embed.addField("Manipulation", `Bannable: ${target.bannable} | Kickable: ${target.kickable} | Manageable: ${target.manageable}`, false) 
   embed.addField("Color", `Color: ${target.displayColor} | Hex: ${target.displayHexColor}`, false)
-  embed.addField("joinedAt", `${dayjs(target.joinedTimestamp).format('MM/DD/YYYY hh:mm:ss')} UTC`, false) 
+  // embed.addField("joinedAt", `${dayjs(target.joinedTimestamp).format('MM/DD/YYYY hh:mm:ss')} UTC`, false) 
+  embed.addField("joinedAt", `<t:${parseInt((+target.joinedTimestamp)/1000)}:R> | ${dayjs(target.joinedTimestamp).format('MM/DD/YYYY hh:mm:ss')} UTC`, false) 
+  embed.addField("createdAt", `<t:${parseInt((+target.user.createdAt)/1000)}:R> | ${dayjs(target.user.createdAt).format('MM/DD/YYYY hh:mm:ss')} UTC`, false) 
   embed.setThumbnail(target.user.avatarURL())
   if (target.premiumSince) {
     embed.addField("Premium Since", " ឵឵ ឵឵"+target.premiumSince, false) 
