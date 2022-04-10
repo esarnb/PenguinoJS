@@ -1,18 +1,19 @@
+const cors = require("cors");
 const express = require("express");
 module.exports = (client) => {
     const PORT = 3434;
     const app = express();
-    
+    app.use(cors());
     app.use((req, res, next) => {
         console.log(`PATH: ${req.path}`);
         next();
     });
 
-    app.get("/", (req, res) => {
+    app.get("/discord", (req, res) => {
         let botInfo = {
             user: client.user,
-            members: client.members.cache.size,
-            servers: client.servers.cache.size,
+            users: client.users.cache.size,
+            servers: client.guilds.cache.size,
             commands: client.commands
         }
         res.json(botInfo)
