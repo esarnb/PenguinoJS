@@ -19,8 +19,9 @@ const client = new Discord.Client({
 client.discord = Discord; // Attach discord functions into client 
 require("./scripts/values.js")(client); // Initialize prefix and variables
 require("./load.js")(client); // Load in commands and events
-require("./Express/express")(client); // Initialize Bot API
 require("./Sequelize/init")(); // Initialize Sequelize Connection
+// Events >> Ready Event >> require("./Express/express")(client); // Initialize Bot API
+
 
 process.on('unhandledRejection', err => { if (err) console.log(err) });
 
