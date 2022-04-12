@@ -4,6 +4,7 @@ module.exports = (client) => {
     const PORT = 3434;
     const app = express();
     app.use(cors());
+    app.options('*', cors());
     app.use((req, res, next) => {
         console.log(`PATH: ${req.path}`);
         next();

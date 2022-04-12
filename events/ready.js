@@ -7,5 +7,4 @@ module.exports = async (client) => {
     let u = client.users.cache.filter(x => !x.bot).size; // u = users (not bots)
     console.log( `${client.user.tag} ready to serve ${g} servers, with ${t} members: ${u} users and ${t-u} bots.`.green); 
     require("../Express/express")(client); // Initialize Bot API
-
 }
