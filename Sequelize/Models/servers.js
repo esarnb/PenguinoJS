@@ -8,17 +8,15 @@ module.exports = Servers.init({
     type: DataTypes.STRING,
     primaryKey: true,
     allowNull: false,
-    unique: true
+    unique: 'column'
   },
   name: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true
   },
   prefix: {
     type: DataTypes.STRING,
     allowNull: false,
-    unique: true
   },
 }, {
   sequelize: sequelizeConnection,

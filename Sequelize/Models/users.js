@@ -8,12 +8,11 @@ module.exports = Users.init({
     type: DataTypes.STRING,
     primaryKey: true,
     allowNull: false,
-    unique: true
+    unique: 'column'
   },
   snowflakes: {
     type: DataTypes.INTEGER.UNSIGNED,
     allowNull: false,
-    unique: true
   },
   notes: {
     type: DataTypes.TEXT,
