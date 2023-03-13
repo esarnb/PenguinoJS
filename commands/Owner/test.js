@@ -1,8 +1,28 @@
+require("dotenv").config();
+
 exports.run = async (client, msg, args) => {
-  msg.channel.send({embeds: [
-    new client.discord.MessageEmbed()
-      .setDescription(`Dynamic Timestamp: <t:${parseInt((+ new Date())/1000)}:R>`)
-  ]})
+  const msgCollector = new MessageCollector(msg.channel, {
+    
+  });
+
+  msgCollector.collect((message) => {
+
+  });
+
+  msgCollector.dispose((message) => {
+
+  });
+
+  msgCollector.end((collected, reason) => {
+
+  });
+
+  msg.channel.send({
+    embeds: [
+      new client.discord.MessageEmbed()
+        .setDescription("<a:cockdance:671548656192847883>")
+    ]
+  });
 }
 
 exports.help = {

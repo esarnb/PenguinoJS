@@ -30,19 +30,9 @@ exports.run = async (client, msg, args) => {
     embed.addField("Premium Since Timestamp", " ឵឵ ឵឵"+target.premiumSinceTimestamp, false) 
   }
   
-  // if (target.presence) { 
-  //   if (target.presence.clientStatus) embed.addField("Status", target.presence.clientStatus)
-  //   if (target.presence.activities.length) target.presence.activities.map(x => {
-  //     embed.addField(`${x.emoji} ឵឵ ឵឵${x.name}`, `${x.type} ឵឵ ឵឵${x.details}`)
-  //   })
-  // }
   if (target.roles) {
     embed.addField("Roles", target.roles.cache.map(x => x).join(" | "))
   }
-  // if (target.voice) {
-  //   embed.addField("voice", "Has voice data")
-  // }
-  // embed.addField("User INFO", " ឵឵ ឵឵ ឵឵ ឵឵")
   
   msg.channel.send({embeds: [embed]})
 }
@@ -53,6 +43,6 @@ exports.help = {
   type: "Info", 
   usage: `member`, 
   owner: false, 
-  locked: true, 
+  locked: false, 
   guild: true 
 }

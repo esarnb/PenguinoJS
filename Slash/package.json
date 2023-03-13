@@ -1,0 +1,17 @@
+{
+  "name": "pjs-slash",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "color": "^4.2.3",
+    "discord.js": "^14.6.0",
+    "dotenv": "^16.0.3"
+  }
+}

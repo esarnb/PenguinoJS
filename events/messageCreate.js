@@ -2,7 +2,7 @@ module.exports = async (client, msg) => {
     if (msg.author.bot || (msg.content.startsWith("`") && msg.content.charAt(msg.content.length - 1) == "`")) return;
     
     //Setup prefix
-    let prefixes = [client.prefix, `<@${client.user.id}> `, `<@!${client.user.id}> `];
+    let prefixes = [client.prefix, client.config.prefix, `<@${client.user.id}> `, `<@!${client.user.id}> `];
     for (thisPrefix of prefixes) if (msg.content.startsWith(thisPrefix)) client.prefix = thisPrefix;
     if(msg.content.indexOf(client.prefix) !== 0) return;
     //Load Args, cmd
