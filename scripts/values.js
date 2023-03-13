@@ -16,11 +16,6 @@ module.exports = async (client) => {
 
     // Bot Owners that can do Owner Commands
     client.owners = new client.discord.Collection();
-    // owners.forEach(owner => {
-    //     let key = Object.keys(owner)[0];
-    //     let value = Object.values(owner)[0];
-    //     client.owners.set(key, value)
-    // })
     owners.forEach((owner) => {
         Object.entries(owner).forEach(([key, value]) => {
           client.owners.set(key, value)
@@ -34,12 +29,6 @@ module.exports = async (client) => {
         })
     })
     
-    // trusted.forEach(trustee => {
-    //     console.log(trustee);
-    //     let key, value = Object.entries(trustee);
-    //     client.trusted.set(key, value)
-    // })
-    // for (const [key, value] of Object.entries(trusted)) client.trusted.set(key, value);
     console.log(client.trusted)
 
     client.invis = "᲼";
